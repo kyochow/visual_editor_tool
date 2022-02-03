@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95e66c6366d904e98bc83428217d4fd7, type: 3}
+  m_Name: BuildAndroidDev
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"graph":{"variables":{"collection":{"$content":[],"$version":"A"},"$version":"A"},"controlInputDefinitions":[],"controlOutputDefinitions":[],"valueInputDefinitions":[],"valueOutputDefinitions":[],"title":"\u6784\u5efaAndroidDev\u5305","summary":"\u6d41\u7a0b\u5316\u6784\u5efaandroid\u7684\u5f00\u53d1\u7248\u672c\u5305\uff0c\u5177\u6709\u5982\u4e0b\u529f\u80fd\n1\uff0c\u6253\u5f00DEV\u5b8f\n2\uff0c\u5f00\u542fDevelopment\n3\uff0cAssetbundle\u6e05\u7406\u5168\u90e8","pan":{"x":254.0,"y":53.81953},"zoom":1.0,"elements":[{"defaultValues":{},"position":{"x":-455.0,"y":-255.0},"guid":"4713b52a-da88-4333-8f84-c512337dfc3c","$version":"A","$type":"VET.Node.StartNode","$id":"9"},{"X":{"nullMeansSelf":false,"allowsNull":false,"unit":{"$ref":"11"}},"Y":{"nullMeansSelf":false,"allowsNull":false,"unit":{"$ref":"11"}},"Z":{"nullMeansSelf":false,"allowsNull":false,"unit":{"$ref":"11"}},"defaultValues":{"X":{"$content":"0","$type":"System.String"},"Y":{"$content":"1","$type":"System.String"},"Z":{"$content":"0","$type":"System.String"}},"position":{"x":-285.0,"y":-255.0},"guid":"9be0f32b-a5c4-4a94-8db3-c61ce30cca33","$version":"A","$type":"VET.Node.SetVersion","$id":"11"},{"group":{"nullMeansSelf":false,"allowsNull":false,"unit":{"$ref":"16"}},"sym":{"nullMeansSelf":false,"allowsNull":false,"unit":{"$ref":"16"}},"defaultValues":{"group":{"$content":"Android","$type":"UnityEditor.BuildTargetGroup"},"sym":{"$content":"DEV","$type":"System.String"}},"position":{"x":16.0,"y":-244.0},"guid":"84a1f0a0-6a8d-458c-91b5-ce0411c823ae","$version":"A","$type":"VET.Node.SetScriptingDefineSymbols","$id":"16"},{"ClearAll":{"nullMeansSelf":false,"allowsNull":false,"unit":{"$ref":"20"}},"defaultValues":{"ClearAll":{"$content":false,"$type":"System.Boolean"}},"position":{"x":367.0,"y":-145.0},"guid":"87d38371-a7f9-422d-a61c-8b8404fb32dd","$version":"A","$type":"VET.Node.BuildAddressable","$id":"20"},{"Development":{"nullMeansSelf":false,"allowsNull":false,"unit":{"$ref":"23"}},"defaultValues":{"Development":{"$content":true,"$type":"System.Boolean"}},"position":{"x":719.0,"y":-49.0},"guid":"5d271920-f745-4455-944e-2e78d456944c","$version":"A","$type":"VET.Node.BuildApk","$id":"23"},{"sourceUnit":{"$ref":"9"},"sourceKey":"outputTrigger","destinationUnit":{"$ref":"11"},"destinationKey":"inputTrigger","guid":"e8b9deac-e573-43ec-b9fe-c23ccfcb5f10","$type":"Unity.VisualScripting.ControlConnection"},{"sourceUnit":{"$ref":"11"},"sourceKey":"outputTrigger","destinationUnit":{"$ref":"16"},"destinationKey":"inputTrigger","guid":"a8e63323-7a00-4e6d-8062-1e0e872e01e9","$type":"Unity.VisualScripting.ControlConnection"},{"sourceUnit":{"$ref":"16"},"sourceKey":"outputTrigger","destinationUnit":{"$ref":"20"},"destinationKey":"inputTrigger","guid":"f1936044-da3f-4437-8b6f-a5b964949b62","$type":"Unity.VisualScripting.ControlConnection"},{"sourceUnit":{"$ref":"20"},"sourceKey":"outputTrigger","destinationUnit":{"$ref":"23"},"destinationKey":"inputTrigger","guid":"8c93f242-5268-427c-adce-fde185474796","$type":"Unity.VisualScripting.ControlConnection"}],"$version":"A"}}'
+    _objectReferences: []
