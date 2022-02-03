@@ -23,16 +23,16 @@ public class VETWindow : EditorWindow
         win.maxSize = new Vector2(500, 1200);
         win.Show(true);
     }
+
+    private VETToolbar             _toolBar;
     
     private VETSetting             _setting;
     private string                 _plansPath;  
     private string                 _planType;   
 
-    private DropdownField          _planDrop;
     private Label                  _lbTitle; 
     private Label                  _lbDesc;  
     private ListView               _listView;
-    private List<string>           _listPlanGroups = new List<string>();
     private string                 _currPlanGroup;
     private List<string>           _listPlans = new List<string>();
     public void CreateGUI()
@@ -43,45 +43,15 @@ public class VETWindow : EditorWindow
         _listView = new ListView();
         
         Refresh();
-
-        VisualElement toolBar = new VisualElement();
-        toolBar.style.width = new StyleLength(Length.Percent(100));
-        toolBar.style.flexDirection = new StyleEnum<FlexDirection>(FlexDirection.Row);
         
-        
-        _planDrop = new DropdownField("Group",_listPlanGroups,0,OnPlanType);
-        _planDrop.labelElement.style.minWidth = 80;
-        _planDrop.labelElement.style.width = 80;
-        toolBar.Add(_planDrop);
-        
-        var btnAddGroup = new Button();
-        btnAddGroup.text = "+";
-        btnAddGroup.tooltip = "Add a new group";
-        btnAddGroup.style.width = 25;
-        toolBar.Add(btnAddGroup);
-        
-        var btnDeleteGroup = new Button();
-        btnDeleteGroup.text = "-";
-        btnDeleteGroup.tooltip = "Delete this group";
-        btnDeleteGroup.style.width = 25;
-        btnDeleteGroup.style.right = 0;
-        toolBar.Add(btnDeleteGroup);
-        
-        var btnRefresh = new Button();
-        btnRefresh.text = "R";
-        btnRefresh.tooltip = "Refresh all";
-        btnRefresh.style.width = 25;
-        btnRefresh.style.right = 0;
-        toolBar.Add(btnRefresh);
+        _toolBar = new VETToolbar(this,OnPlanType);
         
         _lbTitle = new Label();
         _lbDesc = new Label();
-
- 
+        
         PrepareListView();
-        root.Add(toolBar);
-        
-        
+        root.Add(_toolBar.BarRoot);
+
         root.Add(_listView);
         root.Add(_lbTitle);
         root.Add(_lbDesc);
@@ -89,7 +59,7 @@ public class VETWindow : EditorWindow
 
     private void Update()
     {
-        _planDrop.style.width = position.width-102;
+        _toolBar?.Update();
     }
 
     public void OnDestroy()
@@ -138,7 +108,7 @@ public class VETWindow : EditorWindow
                         var sga = SelectGraph(label.text);
                         AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(sga));
                         Refresh();
-                        OnPlanType(_currPlanGroup);
+                        // OnPlanType(_currPlanGroup);
                     }
                 });
             }));
@@ -151,7 +121,7 @@ public class VETWindow : EditorWindow
         {
             foreach (var obj in objects)
             {
-                var fullPath = $"Path : {_plansPath}/{_currPlanGroup}/{obj}.asset";
+                var fullPath = $"{_plansPath}/{_currPlanGroup}/{obj}.asset";
                 var sga = SelectGraph(obj.ToString());
                 
                 var title = string.Empty;
@@ -171,26 +141,14 @@ public class VETWindow : EditorWindow
     {
         _setting = VETMenu.GetVETSetting();
         _plansPath = _setting.PlansPath;
-        DirectoryInfo diRoot = new DirectoryInfo(_plansPath);
-        if (!diRoot.Exists)
-        {
-            throw new Exception(" plan path not exist,please set in VETSetting");
-        }
-        
-        var dis = diRoot.GetDirectories();
-        _listPlanGroups.Clear();
-        foreach (var di in dis)
-        {
-            _listPlanGroups.Add(di.Name);
-        }
     }
 
-    private string OnPlanType(string dma)
+    private void OnPlanType(string dma)
     {
         _currPlanGroup = dma;
         if (!string.IsNullOrEmpty(_currPlanGroup))
         {
-            string fullDir = _plansPath + "/" + _currPlanGroup;
+            string fullDir = _plansPath + "/" + dma;
             DirectoryInfo di = new DirectoryInfo(fullDir);
             FileInfo[] fis = di.GetFiles("*.asset", SearchOption.AllDirectories);
             
@@ -205,7 +163,6 @@ public class VETWindow : EditorWindow
             _listView.Refresh();
             _listView.ClearSelection();
         }
-        return dma;
     }
 
     private ScriptGraphAsset SelectGraph(string planName)
