@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace VET
@@ -104,6 +105,8 @@ namespace VET
         {
             RefreshGroup();
             _planDrop.MarkDirtyRepaint();
+            if (!_listPlanGroups.Contains(_planDrop.value))
+                _planDrop.index = 0;
         }
         private string OnPlanType(string dma)
         {
