@@ -42,24 +42,28 @@ namespace VET
             _planDrop.labelElement.style.width = 60;
             _barRoot.Add(_planDrop);
         
-            var btnAddGroup = new Button(OnAddGroup);
-            btnAddGroup.text = "+";
-            btnAddGroup.tooltip = "Add a new group";
-            btnAddGroup.style.width = 25;
+            var btnAddGroup = new Button(OnAddGroup)
+            {
+                text = "+",
+                tooltip = "Add a new group",
+                style = { width = 25 }
+            };
             _barRoot.Add(btnAddGroup);
         
-            var btnDeleteGroup = new Button(OnDeleteGroup);
-            btnDeleteGroup.text = "-";
-            btnDeleteGroup.tooltip = "Delete this group";
-            btnDeleteGroup.style.width = 25;
-            btnDeleteGroup.style.right = 0;
+            var btnDeleteGroup = new Button(OnDeleteGroup)
+            {
+                text = "-",
+                tooltip = "Delete this group",
+                style = { width = 25, right = 0 }
+            };
             _barRoot.Add(btnDeleteGroup);
         
-            var btnRefresh = new Button(OnRefresh);
-            btnRefresh.text = "R";
-            btnRefresh.tooltip = "Refresh all";
-            btnRefresh.style.width = 25;
-            btnRefresh.style.right = 0;
+            var btnRefresh = new Button(OnRefresh)
+            {
+                text = "R",
+                tooltip = "Refresh all",
+                style = {width = 25, right = 0 }
+            };
             _barRoot.Add(btnRefresh);
         }
 
