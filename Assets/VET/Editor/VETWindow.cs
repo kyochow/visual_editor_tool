@@ -45,8 +45,11 @@ public class VETWindow : EditorWindow
         Refresh();
         
         _planDrop = new DropdownField("Plan Group",_listPlanGroups,0,OnPlanType);
+
         _lbTitle = new Label();
         _lbDesc = new Label();
+
+ 
         PrepareListView();
 
         root.Add(_planDrop);
@@ -71,6 +74,15 @@ public class VETWindow : EditorWindow
         _listView.style.bottom = 1;
         _listView.showBorder = true;
         _listView.itemHeight = 25;
+        
+        _listView.AddManipulator(new ContextualMenuManipulator((ContextualMenuPopulateEvent evt) =>
+        {
+            evt.menu.AppendAction("Add Plan", (e) =>
+            {
+                
+            });
+        }));
+        
         _listView.makeItem = () =>
         {
             var label = new Label();
@@ -98,6 +110,7 @@ public class VETWindow : EditorWindow
             }));
             return label;
         };
+        
         _listView.bindItem = (lb,i)=>((Label)lb).text = _listPlans[i];
         _listView.onSelectionChange += (objects) =>
         {

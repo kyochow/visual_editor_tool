@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace VET
 {
+    [CreateAssetMenu(menuName = "VET/VETSetting", fileName = "VETSetting", order = 81)]
     public class VETSetting : ScriptableObject
     {
         [Header("PlansPath(begin with Assets/)")]

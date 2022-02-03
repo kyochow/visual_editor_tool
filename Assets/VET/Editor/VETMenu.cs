@@ -22,13 +22,6 @@ namespace VET
         {
             Selection.activeObject = GetVETSetting();
         }
-        
-        [MenuItem("GameObject/VET/Create VETSetting")]
-        public static void Create()
-        {
-            var so = ScriptableObject.CreateInstance<VETSetting>();
-            AssetDatabase.CreateAsset(so, "Assets/VETSetting.asset");
-        }
 
         public static VETSetting GetVETSetting()
         {
