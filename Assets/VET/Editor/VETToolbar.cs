@@ -98,7 +98,18 @@ namespace VET
 
         private void OnDeleteGroup()
         {
+            if (string.IsNullOrEmpty(_currPlanGroup))
+                return;
             
+            var del = EditorUtility.DisplayDialog("Delete?", "Delete this group?", "YES", "NO");
+            if (del)
+            {
+                var plansPath = _setting.PlansPath;
+                Directory.Delete($"{plansPath}/{_currPlanGroup}",true);
+                File.Delete($"{plansPath}/{_currPlanGroup}.meta");
+                AssetDatabase.Refresh();
+                OnRefresh();
+            }
         }
 
         private void OnRefresh()
