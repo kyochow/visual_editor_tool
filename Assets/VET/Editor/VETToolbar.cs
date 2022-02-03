@@ -30,7 +30,7 @@ namespace VET
             _win = win;
             _onGroupChange = onGroupChange;
 
-            Refresh();
+            RefreshGroup();
             
             _barRoot = new VisualElement();
             _barRoot.style.width = new StyleLength(Length.Percent(100));
@@ -41,25 +41,30 @@ namespace VET
             _planDrop.labelElement.style.width = 60;
             _barRoot.Add(_planDrop);
         
-            var btnAddGroup = new Button();
+            var btnAddGroup = new Button(OnAddGroup);
             btnAddGroup.text = "+";
             btnAddGroup.tooltip = "Add a new group";
             btnAddGroup.style.width = 25;
             _barRoot.Add(btnAddGroup);
         
-            var btnDeleteGroup = new Button();
+            var btnDeleteGroup = new Button(OnDeleteGroup);
             btnDeleteGroup.text = "-";
             btnDeleteGroup.tooltip = "Delete this group";
             btnDeleteGroup.style.width = 25;
             btnDeleteGroup.style.right = 0;
             _barRoot.Add(btnDeleteGroup);
         
-            var btnRefresh = new Button();
+            var btnRefresh = new Button(OnRefresh);
             btnRefresh.text = "R";
             btnRefresh.tooltip = "Refresh all";
             btnRefresh.style.width = 25;
             btnRefresh.style.right = 0;
             _barRoot.Add(btnRefresh);
+        }
+
+        public void OnFocus()
+        {
+            OnRefresh();
         }
         
         public void Update()
@@ -67,7 +72,7 @@ namespace VET
             _planDrop.style.width = _win.position.width-102;
         }
         
-        private void Refresh()
+        private void RefreshGroup()
         {
             _setting = VETMenu.GetVETSetting();
             var plansPath = _setting.PlansPath;
@@ -77,13 +82,29 @@ namespace VET
                 throw new Exception(" plan path not exist,please set in VETSetting");
             }
         
+            _listPlanGroups.Clear();
             var dis = diRoot.GetDirectories();
             foreach (var di in dis)
             {
                 _listPlanGroups.Add(di.Name);
             }
         }
-        
+
+        private void OnAddGroup()
+        {
+            VETMenu.CreatePlanGroup();
+        }
+
+        private void OnDeleteGroup()
+        {
+            
+        }
+
+        private void OnRefresh()
+        {
+            RefreshGroup();
+            _planDrop.MarkDirtyRepaint();
+        }
         private string OnPlanType(string dma)
         {
             if (!string.IsNullOrEmpty(dma))

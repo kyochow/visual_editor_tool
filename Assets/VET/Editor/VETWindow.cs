@@ -57,6 +57,11 @@ public class VETWindow : EditorWindow
         root.Add(_lbDesc);
     }
 
+    private void OnFocus()
+    {
+        _toolBar?.OnFocus();
+    }
+
     private void Update()
     {
         _toolBar?.Update();
