@@ -57,14 +57,6 @@ namespace VET
                 style = { width = 25, right = 0 }
             };
             _barRoot.Add(btnDeleteGroup);
-        
-            var btnRefresh = new Button(OnRefresh)
-            {
-                text = "R",
-                tooltip = "Refresh all",
-                style = {width = 25, right = 0 }
-            };
-            _barRoot.Add(btnRefresh);
         }
 
         public void OnFocus()
@@ -74,7 +66,7 @@ namespace VET
         
         public void Update()
         {
-            _planDrop.style.width = _win.position.width-102;
+            _planDrop.style.width = _win.position.width-72;
         }
         
         private void RefreshGroup()
