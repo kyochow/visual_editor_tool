@@ -84,6 +84,17 @@ public class VETWindow : EditorWindow
                 {
                     EditGraph(label.text);
                 });
+                evt.menu.AppendAction("Delete Plan", (e) =>
+                {
+                    var del = EditorUtility.DisplayDialog("Delete?", "Delete this plan?", "YES", "NO");
+                    if (del)
+                    {
+                        var sga = SelectGraph(label.text);
+                        AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(sga));
+                        Refresh();
+                        OnPlanType(_currPlanGroup);
+                    }
+                });
             }));
             return label;
         };
