@@ -86,25 +86,10 @@ namespace VET
         
         private string OnPlanType(string dma)
         {
-            _currPlanGroup = dma;
-            if (!string.IsNullOrEmpty(_currPlanGroup))
+            if (!string.IsNullOrEmpty(dma))
             {
+                _currPlanGroup = dma;
                 _onGroupChange?.Invoke(_currPlanGroup);
-                // string fullDir = _setting.PlansPath + "/" + _currPlanGroup;
-                // DirectoryInfo di = new DirectoryInfo(fullDir);
-                // FileInfo[] fis = di.GetFiles("*.asset", SearchOption.AllDirectories);
-                //
-                // _listView.Clear();
-                // _listPlans.Clear();
-                // foreach (var fi in fis)
-                // {
-                //     _listPlans.Add(Path.GetFileNameWithoutExtension(fi.Name));
-                // }
-                //
-                // _onGroupChange
-                // _listView.itemsSource = _listPlans;
-                // _listView.Refresh();
-                // _listView.ClearSelection();
             }
             return dma;
         }
