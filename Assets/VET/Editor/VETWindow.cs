@@ -43,19 +43,53 @@ public class VETWindow : EditorWindow
         _listView = new ListView();
         
         Refresh();
-        
-        _planDrop = new DropdownField("Plan Group",_listPlanGroups,0,OnPlanType);
 
+        VisualElement toolBar = new VisualElement();
+        toolBar.style.width = new StyleLength(Length.Percent(100));
+        toolBar.style.flexDirection = new StyleEnum<FlexDirection>(FlexDirection.Row);
+        
+        
+        _planDrop = new DropdownField("Group",_listPlanGroups,0,OnPlanType);
+        _planDrop.labelElement.style.minWidth = 80;
+        _planDrop.labelElement.style.width = 80;
+        toolBar.Add(_planDrop);
+        
+        var btnAddGroup = new Button();
+        btnAddGroup.text = "+";
+        btnAddGroup.tooltip = "Add a new group";
+        btnAddGroup.style.width = 25;
+        toolBar.Add(btnAddGroup);
+        
+        var btnDeleteGroup = new Button();
+        btnDeleteGroup.text = "-";
+        btnDeleteGroup.tooltip = "Delete this group";
+        btnDeleteGroup.style.width = 25;
+        btnDeleteGroup.style.right = 0;
+        toolBar.Add(btnDeleteGroup);
+        
+        var btnRefresh = new Button();
+        btnRefresh.text = "R";
+        btnRefresh.tooltip = "Refresh all";
+        btnRefresh.style.width = 25;
+        btnRefresh.style.right = 0;
+        toolBar.Add(btnRefresh);
+        
         _lbTitle = new Label();
         _lbDesc = new Label();
 
  
         PrepareListView();
-
-        root.Add(_planDrop);
+        root.Add(toolBar);
+        
+        
         root.Add(_listView);
         root.Add(_lbTitle);
         root.Add(_lbDesc);
+    }
+
+    private void Update()
+    {
+        _planDrop.style.width = position.width-102;
     }
 
     public void OnDestroy()
@@ -112,6 +146,7 @@ public class VETWindow : EditorWindow
         };
         
         _listView.bindItem = (lb,i)=>((Label)lb).text = _listPlans[i];
+        
         _listView.onSelectionChange += (objects) =>
         {
             foreach (var obj in objects)
