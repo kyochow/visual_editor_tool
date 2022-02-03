@@ -88,7 +88,8 @@ public class VETWindow : EditorWindow
         {
             evt.menu.AppendAction("Add Plan", (e) =>
             {
-                
+                var sgaTmp = CreateInstance<ScriptGraphAsset>();
+                ProjectWindowUtil.CreateAsset(sgaTmp,$"{_plansPath}/{_currPlanGroup}/New.asset");
             });
         }));
         

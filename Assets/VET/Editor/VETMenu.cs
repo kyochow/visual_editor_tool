@@ -38,12 +38,6 @@ namespace VET
             ProjectWindowUtil.CreateFolder();
         }
         
-        [MenuItem("Assets/Create/VET/Create VET Plan", false, 82)]
-        public static void CreatePlan()
-        {
-            
-        }
-
         public static VETSetting GetVETSetting()
         {
             var fs =AssetDatabase.FindAssets("t:VETSetting",new []{"Assets"});
