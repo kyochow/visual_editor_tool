@@ -4,8 +4,11 @@
 */
 
 using System;
+using System.IO;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using Object = System.Object;
 
 namespace VET
 {
@@ -21,6 +24,18 @@ namespace VET
         public static void ShowSetting()
         {
             Selection.activeObject = GetVETSetting();
+        }
+        
+        [MenuItem("Assets/Create/VET/Create VET Group", false, 82)]
+        public static void CreatePlanGroup()
+        {
+            var vetSetting = GetVETSetting();
+            if (string.IsNullOrEmpty(vetSetting.PlansPath) || !Directory.Exists(vetSetting.PlansPath))
+                throw new Exception("Plans Path not exist");
+            UnityEngine.Object obj = AssetDatabase.LoadAssetAtPath(vetSetting.PlansPath, typeof(UnityEngine.Object));
+
+            Selection.activeObject = obj;
+            ProjectWindowUtil.CreateFolder();
         }
 
         public static VETSetting GetVETSetting()
