@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 /** 
  *Author:       Kyo Zhou
  *Descrp:       Visual Script executor for editor script
@@ -6,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using VET.Node;
 
 namespace VET
 {
@@ -44,7 +44,7 @@ namespace VET
             IUnit unitCurr = null;
             foreach (var unit in sga.graph.units)
             {
-                if (unit.GetType() == typeof(StartNode))
+                if (unit.GetType() == typeof(VET.Node.StartNode))
                 {
                     unitCurr = unit;
                     break;
@@ -88,8 +88,6 @@ namespace VET
             return pms;
         }
 
-#if UNITY_EDITOR
-        
         /// <summary>
         /// run plan normally
         /// </summary>
@@ -131,6 +129,6 @@ namespace VET
                 throw new Exception("There is 2 VETSetting");
             return UnityEditor.AssetDatabase.LoadAssetAtPath<VETSetting>(UnityEditor.AssetDatabase.GUIDToAssetPath(fs[0]));
         }
-#endif
     }
 }
+#endif
