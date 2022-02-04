@@ -11,14 +11,9 @@ namespace VET
 {
     public class VExecutor
     {
-        public static void RunPlan(string groupName, string planName)
-        {
-            
-        }
         public static void Do(ScriptGraphAsset sg)
         {
-            // GraphWindow win = null;
-            //现克隆一份，防止原配置被修改掉
+            //clone one , the origin asset will be protected
             var sga = sg.Clone(null, false);
             GraphReference graphReference = null;
             graphReference = GraphReference.New(sga, true);
@@ -33,7 +28,7 @@ namespace VET
 
             var flow = Flow.New(graphReference);
             
-            //现找到开始节点
+            //find the start node
             IUnit unitCurr = null;
             foreach (var unit in sga.graph.units)
             {
@@ -50,9 +45,6 @@ namespace VET
                 return;
             }
 
-            TryHighlight(unitCurr);
-            
-            
             foreach (var cot in unitCurr.controlOutputs)
             {
                 flow.Run(cot);
@@ -61,7 +53,7 @@ namespace VET
         }
 
         /// <summary>
-        /// 处理Commandline参数，直接塞到sga.graph.variables里去，这样每一个Node都可以拿到
+        /// got Commandline params and insert to sga.graph.variables
         /// </summary>
         /// <param name="sga"></param>
         private static void HandleCommandLineArgs(ScriptGraphAsset sga)
@@ -80,13 +72,22 @@ namespace VET
             }
         }
 
-        public static void TryHighlight(IGraphElement item)
+#if UNITY_EDITOR
+        
+        /// <summary>
+        /// run plan by commandline
+        /// </summary>
+        /// <param name="groupName"></param>
+        /// <param name="planName"></param>
+        public static void RunPlan(string groupName, string planName)
         {
-            var win = GraphWindow.active;
-            if (win != null)
-                win.context.canvas.selection.Add(item);
+            var setting = GetVETSetting();
+            var fullPath = $"{setting.PlansPath}/{groupName}/{planName}.asset";
+            var sga = UnityEditor.AssetDatabase.LoadAssetAtPath<ScriptGraphAsset>(fullPath);
+            Do(sga);
         }
-        #if UNITY_EDITOR
+        
+        //Load the global VET setting
         public static VETSetting GetVETSetting()
         {
             var fs =UnityEditor.AssetDatabase.FindAssets("t:VETSetting",new []{"Assets"});

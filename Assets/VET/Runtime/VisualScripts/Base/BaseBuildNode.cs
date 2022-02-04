@@ -15,7 +15,6 @@ namespace VET.Node
       {
          inputTrigger = ControlInput("inputTrigger", (flow) =>
          {
-            VExecutor.TryHighlight(this);
             Process(flow);
             return outputTrigger;
          });
