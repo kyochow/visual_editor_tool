@@ -29,3 +29,6 @@ VET是一个极简的工具框架，目的在于提出一个统一思路，来�
 #### 自定义Node
 可以按照VisualScript规则随意定义，但是EditorTool建议如下定义，便于统一管理
 ![image](https://raw.githubusercontent.com/kyochow/visual_editor_tool/main/Misc/code.png)
+
+##### PS: 新增Node后，需要到ProjectSetting/VisualScript中，刷新一下，否则在GraphWindow中右键->Add Node时无法找到并添加
+![image](https://raw.githubusercontent.com/kyochow/visual_editor_tool/main/Misc/psvs.png)
