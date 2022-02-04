@@ -18,7 +18,7 @@ VET是一个极简的工具框架，目的在于提出一个统一思路，来�
 
 ![image](https://raw.githubusercontent.com/kyochow/visual_editor_tool/main/Misc/VETWindow.png)
 
-- 4 Edit/Run Plan (使用unity内置的Visual Script机制)，特别的，第一个节点必须是Vet/Start
+- 4 Edit/Run Plan ,直观的流程界面，支持VS内置节点，特别的是，第一个节点必须是VET/Start
 ![image](https://raw.githubusercontent.com/kyochow/visual_editor_tool/main/Misc/Graph.png)
 
 
@@ -28,3 +28,4 @@ VET是一个极简的工具框架，目的在于提出一个统一思路，来�
 
 #### 自定义Node
 可以按照VisualScript规则随意定义，但是EditorTool建议如下定义，便于统一管理
+![image](https://raw.githubusercontent.com/kyochow/visual_editor_tool/main/Misc/code.png)
