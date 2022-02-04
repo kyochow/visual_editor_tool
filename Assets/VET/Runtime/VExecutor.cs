@@ -3,6 +3,7 @@
  *Descrp:       Visual Script executor for editor script
 */
 using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using VET.Node;
@@ -12,7 +13,7 @@ namespace VET
     public class VExecutor
     {
         public static bool BatchMode = false;
-        private static void Do(ScriptGraphAsset sg)
+        private static void Do(ScriptGraphAsset sg,Dictionary<string,string> dict)
         {
             //clone one , the origin asset will be protected
             var sga = sg.Clone(null, false);
@@ -20,7 +21,13 @@ namespace VET
 
             if (!BatchMode)
             {
-                HandleCommandLineArgs(sga);
+                if (dict != null)
+                {
+                    foreach (var kv in dict)
+                    {
+                        sga.graph.variables.Set(kv.Key,kv.Value);
+                    }
+                }
             }
             else
             {
@@ -61,20 +68,24 @@ namespace VET
         /// got Commandline params and insert to sga.graph.variables
         /// </summary>
         /// <param name="sga"></param>
-        private static void HandleCommandLineArgs(ScriptGraphAsset sga)
+        private static Dictionary<string,string> HandleCommandLineArgs()
         {
             string[] args = Environment.GetCommandLineArgs();
             if (args.Length <= 0)
-                return;
+                return null;
+            Dictionary<string, string> pms = new Dictionary<string, string>();
             foreach (var arg in args)
             {
                 var spstrs = arg.Split('=');
                 if (spstrs.Length == 2)
                 {
                     Debug.Log($"Got param {spstrs[0]} : {spstrs[1]}");
-                    sga.graph.variables.Set(spstrs[0],spstrs[1]);
+                    pms.Add(spstrs[0],spstrs[1]);
+                    // sga.graph.variables.Set(spstrs[0],spstrs[1]);
                 }
             }
+
+            return pms;
         }
 
 #if UNITY_EDITOR
@@ -87,7 +98,7 @@ namespace VET
         public static void Run(ScriptGraphAsset sg)
         {
             BatchMode = false;
-            Do(sg);
+            Do(sg,null);
         }
         
         /// <summary>
@@ -95,13 +106,19 @@ namespace VET
         /// </summary>
         /// <param name="groupName"></param>
         /// <param name="planName"></param>
-        public static void BatchRun(string groupName, string planName)
+        public static void BatchRun()
         {
             BatchMode = true;
+            var dict = HandleCommandLineArgs();
+            if (!dict.ContainsKey("group") || !dict.ContainsKey("plan"))
+                throw new Exception("no groupName or planName");
+            
+            string group = dict["group"];
+            string plan= dict["plan"];
             var setting = GetVETSetting();
-            var fullPath = $"{setting.PlansPath}/{groupName}/{planName}.asset";
+            var fullPath = $"{setting.PlansPath}/{group}/{plan}.asset";
             var sga = UnityEditor.AssetDatabase.LoadAssetAtPath<ScriptGraphAsset>(fullPath);
-            Do(sga);
+            Do(sga,dict);
         }
         
         //Load the global VET setting
