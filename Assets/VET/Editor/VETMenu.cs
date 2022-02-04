@@ -23,13 +23,13 @@ namespace VET
         [MenuItem("Window/VET/VETSetting", false, 3010)]
         public static void ShowSetting()
         {
-            Selection.activeObject = GetVETSetting();
+            Selection.activeObject = VExecutor.GetVETSetting();
         }
         
         [MenuItem("Assets/Create/VET/Create VET Group", false, 82)]
         public static void CreatePlanGroup()
         {
-            var vetSetting = GetVETSetting();
+            var vetSetting = VExecutor.GetVETSetting();
             if (string.IsNullOrEmpty(vetSetting.PlansPath) || !Directory.Exists(vetSetting.PlansPath))
                 throw new Exception("Plans Path not exist");
             UnityEngine.Object obj = AssetDatabase.LoadAssetAtPath(vetSetting.PlansPath, typeof(UnityEngine.Object));
@@ -38,14 +38,6 @@ namespace VET
             ProjectWindowUtil.CreateFolder();
         }
         
-        public static VETSetting GetVETSetting()
-        {
-            var fs =AssetDatabase.FindAssets("t:VETSetting",new []{"Assets"});
-            if (fs.Length == 0)
-                throw new Exception("There is no VETSetting");
-            if(fs.Length >= 2)
-                throw new Exception("There is 2 VETSetting");
-            return AssetDatabase.LoadAssetAtPath<VETSetting>(AssetDatabase.GUIDToAssetPath(fs[0]));
-        }
+       
     }
 }

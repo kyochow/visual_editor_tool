@@ -145,7 +145,7 @@ public class VETWindow : EditorWindow
 
     private void Refresh()
     {
-        _setting = VETMenu.GetVETSetting();
+        _setting = VExecutor.GetVETSetting();
         _plansPath = _setting.PlansPath;
     }
 

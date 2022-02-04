@@ -71,7 +71,7 @@ namespace VET
         
         private void RefreshGroup()
         {
-            _setting = VETMenu.GetVETSetting();
+            _setting = VExecutor.GetVETSetting();
             var plansPath = _setting.PlansPath;
             DirectoryInfo diRoot = new DirectoryInfo(plansPath);
             if (!diRoot.Exists)

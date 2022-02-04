@@ -11,6 +11,10 @@ namespace VET
 {
     public class VExecutor
     {
+        public static void RunPlan(string groupName, string planName)
+        {
+            
+        }
         public static void Do(ScriptGraphAsset sg)
         {
             // GraphWindow win = null;
@@ -82,5 +86,16 @@ namespace VET
             if (win != null)
                 win.context.canvas.selection.Add(item);
         }
+        #if UNITY_EDITOR
+        public static VETSetting GetVETSetting()
+        {
+            var fs =UnityEditor.AssetDatabase.FindAssets("t:VETSetting",new []{"Assets"});
+            if (fs.Length == 0)
+                throw new Exception("There is no VETSetting");
+            if(fs.Length >= 2)
+                throw new Exception("There is 2 VETSetting");
+            return UnityEditor.AssetDatabase.LoadAssetAtPath<VETSetting>(UnityEditor.AssetDatabase.GUIDToAssetPath(fs[0]));
+        }
+        #endif
     }
 }
