@@ -11,20 +11,25 @@ namespace VET
 {
     public class VExecutor
     {
-        public static void Do(ScriptGraphAsset sg)
+        public static bool BatchMode = false;
+        private static void Do(ScriptGraphAsset sg)
         {
             //clone one , the origin asset will be protected
             var sga = sg.Clone(null, false);
-            GraphReference graphReference = null;
-            graphReference = GraphReference.New(sga, true);
-            GraphWindow.OpenActive(graphReference);
-            var win = GraphWindow.active;
-            win.Repaint();
-            win.graphInspectorEnabled = false;
-            win.variablesInspectorEnabled = false;
-            
-            HandleCommandLineArgs(sga);
+            GraphReference graphReference = GraphReference.New(sga, true);
 
+            if (!BatchMode)
+            {
+                HandleCommandLineArgs(sga);
+            }
+            else
+            {
+                GraphWindow.OpenActive(graphReference);
+                var win = GraphWindow.active;
+                win.Repaint();
+                win.graphInspectorEnabled = false;
+                win.variablesInspectorEnabled = false;
+            }
 
             var flow = Flow.New(graphReference);
             
@@ -75,12 +80,24 @@ namespace VET
 #if UNITY_EDITOR
         
         /// <summary>
+        /// run plan normally
+        /// </summary>
+        /// <param name="groupName"></param>
+        /// <param name="planName"></param>
+        public static void Run(ScriptGraphAsset sg)
+        {
+            BatchMode = false;
+            Do(sg);
+        }
+        
+        /// <summary>
         /// run plan by commandline
         /// </summary>
         /// <param name="groupName"></param>
         /// <param name="planName"></param>
-        public static void RunPlan(string groupName, string planName)
+        public static void BatchRun(string groupName, string planName)
         {
+            BatchMode = true;
             var setting = GetVETSetting();
             var fullPath = $"{setting.PlansPath}/{groupName}/{planName}.asset";
             var sga = UnityEditor.AssetDatabase.LoadAssetAtPath<ScriptGraphAsset>(fullPath);
@@ -97,6 +114,6 @@ namespace VET
                 throw new Exception("There is 2 VETSetting");
             return UnityEditor.AssetDatabase.LoadAssetAtPath<VETSetting>(UnityEditor.AssetDatabase.GUIDToAssetPath(fs[0]));
         }
-        #endif
+#endif
     }
 }

@@ -188,6 +188,6 @@ public class VETWindow : EditorWindow
     private void RunGraph(string planName)
     {
         var sga = SelectGraph(planName);
-        VExecutor.Do(sga);
+        VExecutor.Run(sga);
     }
 }
