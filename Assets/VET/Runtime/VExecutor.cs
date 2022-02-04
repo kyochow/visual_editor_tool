@@ -19,7 +19,7 @@ namespace VET
             var sga = sg.Clone(null, false);
             GraphReference graphReference = GraphReference.New(sga, true);
 
-            if (!BatchMode)
+            if (BatchMode)
             {
                 if (variables != null)
                 {
