@@ -13,7 +13,7 @@ namespace VET
     public class VExecutor
     {
         public static bool BatchMode = false;
-        private static void Do(ScriptGraphAsset sg,Dictionary<string,string> dict)
+        private static void Do(ScriptGraphAsset sg,Dictionary<string,string> variables)
         {
             //clone one , the origin asset will be protected
             var sga = sg.Clone(null, false);
@@ -21,9 +21,9 @@ namespace VET
 
             if (!BatchMode)
             {
-                if (dict != null)
+                if (variables != null)
                 {
-                    foreach (var kv in dict)
+                    foreach (var kv in variables)
                     {
                         sga.graph.variables.Set(kv.Key,kv.Value);
                     }
@@ -109,16 +109,16 @@ namespace VET
         public static void BatchRun()
         {
             BatchMode = true;
-            var dict = HandleCommandLineArgs();
-            if (!dict.ContainsKey("group") || !dict.ContainsKey("plan"))
+            var variables = HandleCommandLineArgs();
+            if (!variables.ContainsKey("group") || !variables.ContainsKey("plan"))
                 throw new Exception("no groupName or planName");
             
-            string group = dict["group"];
-            string plan= dict["plan"];
+            string group = variables["group"];
+            string plan= variables["plan"];
             var setting = GetVETSetting();
             var fullPath = $"{setting.PlansPath}/{group}/{plan}.asset";
             var sga = UnityEditor.AssetDatabase.LoadAssetAtPath<ScriptGraphAsset>(fullPath);
-            Do(sga,dict);
+            Do(sga,variables);
         }
         
         //Load the global VET setting
