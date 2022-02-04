@@ -9,18 +9,17 @@ VET是一个极简的工具框架，目的在于提出一个统一思路，来�
 
 #### 开始
 - 1 目录结构
-
+![image](https://raw.githubusercontent.com/kyochow/visual_editor_tool/main/Misc/DIR.png)
 
 - 2 VETSetting(右键->Create->VET->VETSetting)，这里只需要设置Plan路径，以便支持玩家自定义VET位置
 
 
-
-
-
 - 3 VETWindow(Window->VET->VETWindow
 
-- 4 Edit Plan (使用unity内置的Visual Script机制)，特别的，第一个节点必须是Vet/Start
+![image](https://raw.githubusercontent.com/kyochow/visual_editor_tool/main/Misc/WETWindow.png)
 
+- 4 Edit Plan (使用unity内置的Visual Script机制)，特别的，第一个节点必须是Vet/Start
+![image](https://raw.githubusercontent.com/kyochow/visual_editor_tool/main/Misc/Graph.png)
 
 
 #### 命令行调用
