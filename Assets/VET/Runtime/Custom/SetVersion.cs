@@ -8,6 +8,8 @@ namespace VET.Node
     [UnitCategory("VET/Build/SetVersion")]
     public class SetVersion : BaseBuildNode
     {
+        private string KEY_OVERRIDE = "version";
+        
         public ValueInput X;
         public ValueInput Y;
         public ValueInput Z;
@@ -22,9 +24,9 @@ namespace VET.Node
 
         public override void Process(Flow flow)
         {
-            if (Variables.IsDefined(ParamKeys.KEY_VERSION))
+            if (Variables.IsDefined(KEY_OVERRIDE))
             {
-                Debug.Log($"process setversion {Variables.Get(ParamKeys.KEY_VERSION)}");
+                Debug.Log($"process setversion {Variables.Get(KEY_OVERRIDE)}");
             }
             else
             {
